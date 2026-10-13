@@ -1,15 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Brooklyn's Rentals | Secure Checkout</title>
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -23,27 +19,17 @@
       color: #1d2b3a;
     }
 
-    .page {
-      width: 100%;
-      max-width: 560px;
-    }
+    .page { width: 100%; max-width: 560px; }
 
     .checkout-card {
       background: #fff;
       border-radius: 18px;
       padding: 28px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, .08);
+      box-shadow: 0 16px 40px rgba(0,0,0,.08);
     }
 
-    h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-
-    .subtitle {
-      color: #65758a;
-      margin-bottom: 22px;
-    }
+    h1 { margin: 0; font-size: 2rem; }
+    .subtitle { color: #65758a; margin-bottom: 22px; }
 
     .summary, .bank-box {
       background: #f7f9fc;
@@ -60,13 +46,8 @@
       margin-bottom: 10px;
     }
 
-    .summary-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .field {
-      margin-bottom: 18px;
-    }
+    .summary-row:last-child { margin-bottom: 0; }
+    .field { margin-bottom: 18px; }
 
     label {
       display: block;
@@ -74,7 +55,7 @@
       font-weight: 600;
     }
 
-    input, select {
+    input {
       display: block;
       width: 100%;
       padding: 12px 14px;
@@ -84,41 +65,13 @@
       background: white;
     }
 
-    input:focus, select:focus {
+    input:focus {
       outline: 2px solid #9db1ff;
       border-color: #5a7cff;
     }
 
-    .toggle {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .method-btn {
-      padding: 13px 8px;
-      border: 1px solid #dfe7ff;
-      border-radius: 10px;
-      background: #edf2ff;
-      color: #2c3e50;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .method-btn.active {
-      background: #3f66ff;
-      border-color: #3f66ff;
-      color: white;
-    }
-
-    .bank-box h3 {
-      margin-top: 0;
-    }
-
-    .bank-box p {
-      overflow-wrap: anywhere;
-      margin: 10px 0;
-    }
+    .bank-box h3 { margin-top: 0; }
+    .bank-box p { overflow-wrap: anywhere; margin: 10px 0; }
 
     .notice {
       padding: 12px;
@@ -142,10 +95,7 @@
       cursor: pointer;
     }
 
-    .pay-btn:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
+    .pay-btn:disabled { opacity: .6; cursor: not-allowed; }
 
     .message {
       display: none;
@@ -156,38 +106,14 @@
       overflow-wrap: anywhere;
     }
 
-    .message.info {
-      display: block;
-      background: #eef4ff;
-      color: #21458c;
-    }
+    .message.info { display: block; background: #eef4ff; color: #21458c; }
+    .message.error { display: block; background: #fff0f0; color: #a32121; }
+    .message.success { display: block; background: #ebf9ef; color: #175f35; }
 
-    .message.error {
-      display: block;
-      background: #fff0f0;
-      color: #a32121;
-    }
-
-    .message.success {
-      display: block;
-      background: #ebf9ef;
-      color: #175f35;
-    }
-
-    .small {
-      color: #65758a;
-      font-size: .88rem;
-      line-height: 1.5;
-    }
+    .small { color: #65758a; font-size: .88rem; line-height: 1.5; }
 
     @media (max-width: 480px) {
-      .checkout-card {
-        padding: 20px;
-      }
-
-      .toggle {
-        grid-template-columns: 1fr;
-      }
+      .checkout-card { padding: 20px; }
     }
   </style>
 </head>
@@ -201,7 +127,7 @@
       <div class="summary">
         <div class="summary-row">
           <span>Item</span>
-          <strong>Premium Service</strong>
+          <strong>Rental Payment</strong>
         </div>
 
         <div class="summary-row">
@@ -216,7 +142,6 @@
           min="1"
           max="100000"
           step="0.01"
-          value=""
           required
           aria-label="Payment amount in US dollars"
         >
@@ -230,6 +155,7 @@
             name="fullName"
             autocomplete="name"
             placeholder="Enter your full name"
+            maxlength="120"
             required
           >
         </div>
@@ -246,58 +172,9 @@
           >
         </div>
 
-        <div class="field">
-          <label>Choose Payment Method</label>
-
-          <div class="toggle">
-            <button
-              type="button"
-              class="method-btn active"
-              data-method="card"
-              aria-pressed="true"
-            >
-              Visa / Verve
-            </button>
-
-            <button
-              type="button"
-              class="method-btn"
-              data-method="bank"
-              aria-pressed="false"
-            >
-              Bank Transfer
-            </button>
-          </div>
-        </div>
-
-        <!-- CARD PAYMENT -->
-        <section id="cardFields">
-          <div class="bank-box">
-            <h3>Card Payment</h3>
-
-            <p>
-              <strong>Accepted networks:</strong> Visa and Verve only.
-            </p>
-
-            <p class="small">
-              You will be redirected to a secure payment processor.
-              Enter your card details only on the processor's verified
-              payment page.
-            </p>
-          </div>
-
-          <div class="notice">
-            Card payments require a connected payment processor that
-            supports both Visa and Verve. This page does not collect
-            or store card numbers, expiry dates, or CVVs.
-          </div>
-        </section>
-
-        <!-- BANK TRANSFER -->
-        <section id="bankFields" hidden>
+        <section id="bankFields">
           <div class="bank-box">
             <h3>USD Bank Transfer Details</h3>
-
             <p><strong>Bank:</strong> Lead</p>
             <p><strong>Account Number:</strong> 210599253695</p>
             <p><strong>ACH Routing:</strong> 101019644</p>
@@ -307,11 +184,16 @@
               <strong>Bank Address:</strong>
               1801 Main St., Kansas City, MO 64108
             </p>
-
             <p class="small">
               Confirm these account details with your bank before
               accepting customer payments.
             </p>
+          </div>
+
+          <div class="notice">
+            After you submit your transfer proof, your payment will
+            remain pending until the funds are verified. An official
+            paid receipt is issued only after approval.
           </div>
 
           <div class="field">
@@ -320,6 +202,8 @@
               id="transferReference"
               name="transferReference"
               placeholder="Enter your bank transfer reference"
+              maxlength="150"
+              required
             >
           </div>
 
@@ -330,6 +214,7 @@
               id="receipt"
               name="receipt"
               accept=".jpg,.jpeg,.png,.pdf"
+              required
             >
             <p class="small">
               Accepted formats: JPG, PNG or PDF. Maximum size: 5 MB.
@@ -338,24 +223,15 @@
         </section>
 
         <button type="submit" class="pay-btn" id="payBtn">
-          Continue to Secure Payment
+          Submit Transfer for Verification
         </button>
       </form>
 
-      <div
-        id="message"
-        class="message"
-        role="status"
-        aria-live="polite"
-      ></div>
+      <div id="message" class="message" role="status" aria-live="polite"></div>
 
       <p class="small">
-        Payment notifications: brooklynhousing64@gmail.com
-      </p>
-
-      <p class="small">
-        Bank transfer submissions remain pending until the funds
-        have been verified.
+        Your submission acknowledgement is not an official payment receipt.
+        The official receipt link will be emailed after your payment is verified.
       </p>
     </section>
   </main>
@@ -364,13 +240,8 @@
     const form = document.getElementById("paymentForm");
     const amountInput = document.getElementById("amount");
     const amountDisplay = document.getElementById("amountDisplay");
-    const cardFields = document.getElementById("cardFields");
-    const bankFields = document.getElementById("bankFields");
     const payBtn = document.getElementById("payBtn");
     const message = document.getElementById("message");
-    const methodButtons = document.querySelectorAll(".method-btn");
-
-    let selectedMethod = "card";
 
     function showMessage(text, type = "info") {
       message.textContent = text;
@@ -380,55 +251,29 @@
     function updateAmount() {
       const amount = Number(amountInput.value);
 
-      amountDisplay.textContent =
-        "$" + (Number.isFinite(amount) ? amount : 0)
-          .toLocaleString("en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-          });
+      amountDisplay.textContent = "$" +
+        (Number.isFinite(amount) ? amount : 0).toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
     }
-
-    function setMethod(method) {
-      selectedMethod = method;
-
-      cardFields.hidden = method !== "card";
-      bankFields.hidden = method !== "bank";
-
-      methodButtons.forEach(button => {
-        const active = button.dataset.method === method;
-        button.classList.toggle("active", active);
-        button.setAttribute("aria-pressed", String(active));
-      });
-
-      payBtn.textContent = method === "card"
-        ? "Continue to Secure Payment"
-        : "Submit Transfer for Verification";
-
-      showMessage("");
-      message.className = "message";
-    }
-
-    methodButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        setMethod(button.dataset.method);
-      });
-    });
 
     amountInput.addEventListener("input", updateAmount);
 
     form.addEventListener("submit", async event => {
       event.preventDefault();
 
-      const fullName =
-        document.getElementById("fullName").value.trim();
-
-      const email =
-        document.getElementById("email").value.trim();
-
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
       const amount = Number(amountInput.value);
+      const reference =
+        document.getElementById("transferReference").value.trim();
+      const receipt = document.getElementById("receipt").files[0];
 
-      if (!fullName || !email || !Number.isFinite(amount) ||
-          amount < 1 || amount > 100000) {
+      if (
+        !fullName || !email || !Number.isFinite(amount) ||
+        amount < 1 || amount > 100000
+      ) {
         showMessage(
           "Enter your name, a valid email, and an amount between $1 and $100,000.",
           "error"
@@ -436,97 +281,37 @@
         return;
       }
 
+      if (!reference) {
+        showMessage("Enter your transfer reference.", "error");
+        return;
+      }
+
+      if (!receipt) {
+        showMessage("Upload your transfer receipt.", "error");
+        return;
+      }
+
+      const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "application/pdf"
+      ];
+
+      if (!allowedTypes.includes(receipt.type)) {
+        showMessage("Upload a JPG, PNG or PDF receipt.", "error");
+        return;
+      }
+
+      if (receipt.size > 5 * 1024 * 1024) {
+        showMessage("The receipt must be 5 MB or smaller.", "error");
+        return;
+      }
+
       payBtn.disabled = true;
+      payBtn.textContent = "Submitting…";
 
       try {
-        if (selectedMethod === "card") {
-          /*
-            Your backend must create a real hosted checkout session
-            with a payment provider that supports Visa and Verve.
-
-            The backend must enforce the allowed card networks.
-            Never trust a frontend-only card restriction.
-          */
-
-          showMessage("Connecting to secure card checkout...");
-
-          const response = await fetch(
-            "/api/payments/card/checkout",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                fullName,
-                email,
-                amount,
-                currency: "USD"
-              })
-            }
-          );
-
-          const result = await response.json();
-
-          if (!response.ok) {
-            throw new Error(
-              result.message ||
-              "Card checkout is not configured yet."
-            );
-          }
-
-          if (!result.checkoutUrl) {
-            throw new Error(
-              "The payment server did not return a checkout URL."
-            );
-          }
-
-          const checkoutUrl = new URL(
-            result.checkoutUrl,
-            window.location.origin
-          );
-
-          if (checkoutUrl.protocol !== "https:") {
-            throw new Error("The checkout URL is not secure.");
-          }
-
-          window.location.assign(checkoutUrl.href);
-          return;
-        }
-
-        const reference =
-          document.getElementById("transferReference")
-            .value.trim();
-
-        const receipt =
-          document.getElementById("receipt").files[0];
-
-        if (!reference) {
-          throw new Error("Enter your transfer reference.");
-        }
-
-        if (!receipt) {
-          throw new Error("Upload your transfer receipt.");
-        }
-
-        const allowedTypes = [
-          "image/jpeg",
-          "image/png",
-          "application/pdf"
-        ];
-
-        if (!allowedTypes.includes(receipt.type)) {
-          throw new Error(
-            "Upload a JPG, PNG or PDF receipt."
-          );
-        }
-
-        if (receipt.size > 5 * 1024 * 1024) {
-          throw new Error("The receipt must be 5 MB or smaller.");
-        }
-
         const data = new FormData();
-
         data.append("fullName", fullName);
         data.append("email", email);
         data.append("amount", String(amount));
@@ -536,47 +321,41 @@
 
         const response = await fetch(
           "/api/payments/bank-transfer",
-          {
-            method: "POST",
-            body: data
-          }
+          { method: "POST", body: data }
         );
 
         const result = await response.json();
 
         if (!response.ok) {
           throw new Error(
-            result.message ||
-            "Unable to submit your transfer."
+            result.message || "Unable to submit your transfer."
           );
         }
 
         showMessage(
-          "Your transfer receipt has been submitted. " +
-          "Reference: " + result.reference +
-          ". Payment status: Pending Verification. " +
-          "You will be notified after the funds are verified.",
+          "Your transfer proof has been submitted. Submission ID: " +
+          result.reference +
+          ". Status: PENDING VERIFICATION. This is not confirmation " +
+          "that funds have been received. An official payment receipt " +
+          "will be emailed after the payment is verified.",
           "success"
         );
 
         form.reset();
-        amountInput.value = "25000.00";
         updateAmount();
-        setMethod("card");
 
       } catch (error) {
         showMessage(
-          error.message ||
-          "Unable to connect to the payment server.",
+          error.message || "Unable to connect to the payment server.",
           "error"
         );
       } finally {
         payBtn.disabled = false;
+        payBtn.textContent = "Submit Transfer for Verification";
       }
     });
 
     updateAmount();
-    setMethod("card");
   </script>
 </body>
 </html>
