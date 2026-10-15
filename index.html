@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brooklyn's Rentals | Secure Checkout</title>
+  <title>Brooklyn's Rentals | Checkout Demo</title>
+
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -19,19 +22,30 @@
       color: #1d2b3a;
     }
 
-    .page { width: 100%; max-width: 560px; }
+    .page {
+      width: 100%;
+      max-width: 560px;
+    }
 
     .checkout-card {
       background: #fff;
       border-radius: 18px;
       padding: 28px;
-      box-shadow: 0 16px 40px rgba(0,0,0,.08);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .08);
     }
 
-    h1 { margin: 0; font-size: 2rem; }
-    .subtitle { color: #65758a; margin-bottom: 22px; }
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
 
-    .summary, .bank-box {
+    .subtitle {
+      color: #65758a;
+      margin-bottom: 22px;
+    }
+
+    .summary,
+    .bank-box {
       background: #f7f9fc;
       border: 1px solid #e6edf6;
       border-radius: 12px;
@@ -42,12 +56,18 @@
     .summary-row {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       gap: 12px;
       margin-bottom: 10px;
     }
 
-    .summary-row:last-child { margin-bottom: 0; }
-    .field { margin-bottom: 18px; }
+    .summary-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
 
     label {
       display: block;
@@ -63,6 +83,7 @@
       border-radius: 10px;
       font-size: 16px;
       background: white;
+      color: #1d2b3a;
     }
 
     input:focus {
@@ -70,8 +91,14 @@
       border-color: #5a7cff;
     }
 
-    .bank-box h3 { margin-top: 0; }
-    .bank-box p { overflow-wrap: anywhere; margin: 10px 0; }
+    .bank-box h3 {
+      margin-top: 0;
+    }
+
+    .bank-box p {
+      overflow-wrap: anywhere;
+      margin: 10px 0;
+    }
 
     .notice {
       padding: 12px;
@@ -81,6 +108,40 @@
       color: #70530a;
       font-size: .92rem;
       line-height: 1.5;
+    }
+
+    .demo-notice {
+      padding: 12px;
+      margin-bottom: 18px;
+      border-radius: 9px;
+      background: #eef4ff;
+      color: #21458c;
+      font-size: .92rem;
+      line-height: 1.5;
+    }
+
+    .method-picker {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .method-option {
+      border: 1px solid #dfe7f1;
+      background: white;
+      border-radius: 12px;
+      padding: 14px 12px;
+      cursor: pointer;
+      text-align: center;
+      font-weight: 700;
+      color: #1d2b3a;
+    }
+
+    .method-option.active {
+      border-color: #4b7af9;
+      background: #eef4ff;
+      box-shadow: 0 0 0 1px #4b7af9 inset;
     }
 
     .pay-btn {
@@ -95,7 +156,10 @@
       cursor: pointer;
     }
 
-    .pay-btn:disabled { opacity: .6; cursor: not-allowed; }
+    .pay-btn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
 
     .message {
       display: none;
@@ -106,14 +170,46 @@
       overflow-wrap: anywhere;
     }
 
-    .message.info { display: block; background: #eef4ff; color: #21458c; }
-    .message.error { display: block; background: #fff0f0; color: #a32121; }
-    .message.success { display: block; background: #ebf9ef; color: #175f35; }
+    .message.info {
+      display: block;
+      background: #eef4ff;
+      color: #21458c;
+    }
 
-    .small { color: #65758a; font-size: .88rem; line-height: 1.5; }
+    .message.error {
+      display: block;
+      background: #fff0f0;
+      color: #a32121;
+    }
+
+    .message.success {
+      display: block;
+      background: #ebf9ef;
+      color: #175f35;
+    }
+
+    .small {
+      color: #65758a;
+      font-size: .88rem;
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none !important;
+    }
 
     @media (max-width: 480px) {
-      .checkout-card { padding: 20px; }
+      body {
+        padding: 14px;
+      }
+
+      .checkout-card {
+        padding: 20px;
+      }
+
+      .method-picker {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -121,10 +217,21 @@
 <body>
   <main class="page">
     <section class="checkout-card">
-      <h1>Secure Payment</h1>
-      <p class="subtitle">Brooklyn's Rentals checkout</p>
+
+      <h1>Checkout Demo</h1>
+      <p class="subtitle">
+        Brooklyn's Rentals payment demonstration
+      </p>
+
+      <div class="demo-notice">
+        <strong>Demo mode:</strong>
+        No card will be charged and no real payment is processed.
+        This page creates a demo submission acknowledgement only.
+        Do not enter real card details.
+      </div>
 
       <div class="summary">
+
         <div class="summary-row">
           <span>Item</span>
           <strong>Rental Payment</strong>
@@ -143,13 +250,41 @@
           max="100000"
           step="0.01"
           required
-          aria-label="Payment amount in US dollars"
+          aria-label="Demo payment amount in US dollars"
         >
+
+      </div>
+
+      <div class="field">
+
+        <label>Choose a demo payment method</label>
+
+        <div class="method-picker">
+
+          <button
+            type="button"
+            class="method-option active"
+            id="bankMethod"
+          >
+            Bank Transfer
+          </button>
+
+          <button
+            type="button"
+            class="method-option"
+            id="cardMethod"
+          >
+            Card Payment Demo
+          </button>
+
+        </div>
       </div>
 
       <form id="paymentForm">
+
         <div class="field">
           <label for="fullName">Full Name</label>
+
           <input
             id="fullName"
             name="fullName"
@@ -162,6 +297,7 @@
 
         <div class="field">
           <label for="email">Email Address</label>
+
           <input
             type="email"
             id="email"
@@ -172,76 +308,156 @@
           >
         </div>
 
+        <!-- BANK TRANSFER SECTION -->
+
         <section id="bankFields">
+
           <div class="bank-box">
+
             <h3>USD Bank Transfer Details</h3>
-            <p><strong>Bank:</strong> Lead</p>
-            <p><strong>Account Number:</strong> 210599253695</p>
-            <p><strong>ACH Routing:</strong> 101019644</p>
-            <p><strong>Wire Routing:</strong> 101019644</p>
-            <p><strong>Account Type:</strong> Checking</p>
+
+            <p>
+              <strong>Bank:</strong> Lead
+            </p>
+
+            <p>
+              <strong>Account Number:</strong> 210599253695
+            </p>
+
+            <p>
+              <strong>ACH Routing:</strong> 101019644
+            </p>
+
+            <p>
+              <strong>Wire Routing:</strong> 101019644
+            </p>
+
+            <p>
+              <strong>Account Type:</strong> Checking
+            </p>
+
             <p>
               <strong>Bank Address:</strong>
               1801 Main St., Kansas City, MO 64108
             </p>
+
             <p class="small">
-              Confirm these account details with your bank before
-              accepting customer payments.
+              Independently confirm the account information before
+              accepting real customer payments.
             </p>
+
           </div>
 
           <div class="notice">
-            After you submit your transfer proof, your payment will
-            remain pending until the funds are verified. An official
-            paid receipt is issued only after approval.
+            Transfer information and uploaded receipts are treated
+            as demo submissions. They do not confirm that funds
+            have arrived.
           </div>
 
           <div class="field">
-            <label for="transferReference">Transfer Reference</label>
+
+            <label for="transferReference">
+              Transfer Reference
+            </label>
+
             <input
               id="transferReference"
               name="transferReference"
-              placeholder="Enter your bank transfer reference"
+              placeholder="Enter a demo transfer reference"
               maxlength="150"
-              required
             >
+
           </div>
 
           <div class="field">
-            <label for="receipt">Upload Transfer Receipt</label>
+
+            <label for="receipt">
+              Upload Transfer Receipt (optional)
+            </label>
+
             <input
               type="file"
               id="receipt"
               name="receipt"
               accept=".jpg,.jpeg,.png,.pdf"
-              required
             >
+
             <p class="small">
-              Accepted formats: JPG, PNG or PDF. Maximum size: 5 MB.
+              Accepted formats: JPG, PNG or PDF.
+              Maximum size: 5 MB.
             </p>
+
           </div>
+
         </section>
 
-        <button type="submit" class="pay-btn" id="payBtn">
-          Submit Transfer for Verification
+        <!-- CARD DEMONSTRATION SECTION -->
+
+        <section id="cardFields" class="hidden">
+
+          <div class="notice">
+            This is a non-functional card demo. Do not enter
+            a real card number, expiry date, CVV, or other
+            payment credentials. No card details are requested
+            or transmitted.
+          </div>
+
+          <p class="small">
+            Select the button below to generate a demo acknowledgement.
+            No card transaction takes place.
+          </p>
+
+        </section>
+
+        <button
+          type="submit"
+          class="pay-btn"
+          id="payBtn"
+        >
+          Submit Transfer Demo
         </button>
+
       </form>
 
-      <div id="message" class="message" role="status" aria-live="polite"></div>
+      <div
+        id="message"
+        class="message"
+        role="status"
+        aria-live="polite"
+      ></div>
 
       <p class="small">
-        Your submission acknowledgement is not an official payment receipt.
-        The official receipt link will be sent to your email after your payment is verified.
+        This demo does not generate an official paid receipt.
+        A real payment receipt should only be issued after
+        payment is confirmed by a trusted payment provider
+        or the receiving bank.
       </p>
+
     </section>
   </main>
 
   <script>
     const form = document.getElementById("paymentForm");
+
     const amountInput = document.getElementById("amount");
     const amountDisplay = document.getElementById("amountDisplay");
+
     const payBtn = document.getElementById("payBtn");
     const message = document.getElementById("message");
+
+    const bankMethod = document.getElementById("bankMethod");
+    const cardMethod = document.getElementById("cardMethod");
+
+    const bankFields = document.getElementById("bankFields");
+    const cardFields = document.getElementById("cardFields");
+
+    const referenceInput =
+      document.getElementById("transferReference");
+
+    const receiptInput =
+      document.getElementById("receipt");
+
+    let selectedMethod = "bank";
 
     function showMessage(text, type = "info") {
       message.textContent = text;
@@ -251,93 +467,181 @@
     function updateAmount() {
       const amount = Number(amountInput.value);
 
-      amountDisplay.textContent = "$" +
-        (Number.isFinite(amount) ? amount : 0).toLocaleString("en-US", {
+      amountDisplay.textContent =
+        "$" +
+        (
+          Number.isFinite(amount) ? amount : 0
+        ).toLocaleString("en-US", {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2
         });
     }
 
+    function selectMethod(method) {
+      selectedMethod = method;
+
+      const isBank = method === "bank";
+
+      bankMethod.classList.toggle("active", isBank);
+      cardMethod.classList.toggle("active", !isBank);
+
+      bankFields.classList.toggle("hidden", !isBank);
+      cardFields.classList.toggle("hidden", isBank);
+
+      payBtn.textContent = isBank
+        ? "Submit Transfer Demo"
+        : "Submit Demo Card Payment";
+
+      message.className = "message";
+      message.textContent = "";
+    }
+
+    bankMethod.addEventListener("click", function () {
+      selectMethod("bank");
+    });
+
+    cardMethod.addEventListener("click", function () {
+      selectMethod("card");
+    });
+
     amountInput.addEventListener("input", updateAmount);
 
-    form.addEventListener("submit", async event => {
+    form.addEventListener("submit", async function (event) {
+
       event.preventDefault();
 
-      const fullName = document.getElementById("fullName").value.trim();
-      const email = document.getElementById("email").value.trim();
+      const fullName =
+        document.getElementById("fullName").value.trim();
+
+      const email =
+        document.getElementById("email").value.trim();
+
       const amount = Number(amountInput.value);
-      const reference =
-        document.getElementById("transferReference").value.trim();
-      const receipt = document.getElementById("receipt").files[0];
 
       if (
-        !fullName || !email || !Number.isFinite(amount) ||
-        amount < 1 || amount > 100000
+        !fullName ||
+        !email ||
+        !Number.isFinite(amount) ||
+        amount < 1 ||
+        amount > 100000
       ) {
         showMessage(
           "Enter your name, a valid email, and an amount between $1 and $100,000.",
           "error"
         );
+
         return;
       }
 
-      if (!reference) {
-        showMessage("Enter your transfer reference.", "error");
+      // CARD DEMO
+      // Does not request card credentials or process a payment.
+
+      if (selectedMethod === "card") {
+
+        const demoId =
+          "DEMO-" + Date.now().toString(36).toUpperCase();
+
+        showMessage(
+          "DEMO SUBMISSION CREATED — " +
+          demoId +
+          ". Amount: $" +
+          amount.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }) +
+          ". This is not a card transaction or proof of payment. No card was charged.",
+          "success"
+        );
+
         return;
       }
 
-      if (!receipt) {
-        showMessage("Upload your transfer receipt.", "error");
-        return;
-      }
+      // BANK TRANSFER DEMO
 
-      const allowedTypes = [
-        "image/jpeg",
-        "image/png",
-        "application/pdf"
-      ];
+      const reference = referenceInput.value.trim();
+      const receipt = receiptInput.files[0];
 
-      if (!allowedTypes.includes(receipt.type)) {
-        showMessage("Upload a JPG, PNG or PDF receipt.", "error");
-        return;
-      }
+      if (receipt) {
 
-      if (receipt.size > 5 * 1024 * 1024) {
-        showMessage("The receipt must be 5 MB or smaller.", "error");
-        return;
+        const allowedTypes = [
+          "image/jpeg",
+          "image/png",
+          "application/pdf"
+        ];
+
+        if (!allowedTypes.includes(receipt.type)) {
+
+          showMessage(
+            "Upload a JPG, PNG or PDF receipt.",
+            "error"
+          );
+
+          return;
+        }
+
+        if (receipt.size > 5 * 1024 * 1024) {
+
+          showMessage(
+            "The receipt must be 5 MB or smaller.",
+            "error"
+          );
+
+          return;
+        }
       }
 
       payBtn.disabled = true;
-      payBtn.textContent = "Submitting…";
+      payBtn.textContent = "Submitting Demo...";
 
       try {
+
         const data = new FormData();
+
         data.append("fullName", fullName);
         data.append("email", email);
         data.append("amount", String(amount));
         data.append("currency", "USD");
-        data.append("transferReference", reference);
-        data.append("receipt", receipt);
+
+        data.append(
+          "paymentMethod",
+          "bank-transfer-demo"
+        );
+
+        data.append(
+          "transferReference",
+          reference || "DEMO-NO-REFERENCE"
+        );
+
+        if (receipt) {
+          data.append("receipt", receipt);
+        }
 
         const response = await fetch(
           "/api/payments/bank-transfer",
-          { method: "POST", body: data }
+          {
+            method: "POST",
+            body: data
+          }
         );
 
         const result = await response.json();
 
         if (!response.ok) {
           throw new Error(
-            result.message || "Unable to submit your transfer."
+            result.message ||
+            "Unable to submit the demo."
           );
         }
 
         showMessage(
-          "Your transfer proof has been submitted. Submission ID: " +
-          result.reference +
-          ". Status: PENDING VERIFICATION. This is not confirmation " +
-          "that funds have been received. An official payment receipt " +
-          "will be emailed after the payment is verified.",
+          "DEMO SUBMISSION ONLY — not a confirmed payment. " +
+          "Submission ID: " +
+          (
+            result.reference ||
+            result.submissionId ||
+            "received"
+          ) +
+          ". No funds have been verified or charged.",
           "success"
         );
 
@@ -345,14 +649,24 @@
         updateAmount();
 
       } catch (error) {
+
         showMessage(
-          error.message || "Unable to connect to the payment server.",
+          "The demo submission server is not connected or rejected the request. " +
+          "No payment was made. " +
+          (error.message || ""),
           "error"
         );
+
       } finally {
+
         payBtn.disabled = false;
-        payBtn.textContent = "Submit Transfer for Verification";
+
+        payBtn.textContent =
+          selectedMethod === "bank"
+            ? "Submit Transfer Demo"
+            : "Submit Demo Card Payment";
       }
+
     });
 
     updateAmount();
